@@ -1,0 +1,11 @@
+{
+  "name": "Predefined_historyFMAlarms_v1",
+  "description": "Predefined_historyFMAlarms_v1",
+  "templateId": "Predefined_historyFMAlarms_v1",
+  "argumentList": [
+    {
+      "AlarmTimeStart": "$dataStartTime",
+      "AlarmTimeEnd": "$dataEndTime"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "name": "Predefined_activeAlarms_v3",
+  "description": "Predefined_activeAlarms_v3",
+  "templateId": "Predefined_activeAlarms_v3",
+  "argumentList": [
+    {
+      "alarmTimeStart": "$dataStartTime",
+      "alarmTimeEnd": "$dataEndTime"
+    }
+  ]
+}

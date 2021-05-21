@@ -1,0 +1,13 @@
+{
+  "name": "PET_Framework_CreatePlan",
+  "description": "created by PET Framework",
+  "templateId": "Predefined_alarmDelta_v1",
+  "argumentList": [
+    {
+      "duration": "$duration"
+    }
+  ],
+  "startTime": "$startTime",
+  "endTime": "$endTime",
+  "cronExpression": "$cronExpression"
+}

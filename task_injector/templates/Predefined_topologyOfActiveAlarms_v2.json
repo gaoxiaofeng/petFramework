@@ -1,0 +1,10 @@
+{
+  "name": "Predefined_topologyOfActiveAlarms_v2",
+  "description": "created by PET Framework",
+  "templateId": "Predefined_topologyOfActiveAlarms_v2",
+  "argumentList": [
+    {
+      "alarmNumberList": "$alarmNumberList"
+    }
+  ]
+}

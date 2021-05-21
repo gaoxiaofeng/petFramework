@@ -1,0 +1,12 @@
+{
+  "name": "Predefined_alarmDelta_v1",
+  "description": "Predefined_alarmDelta_v1",
+  "templateId": "Predefined_alarmDelta_v1",
+  "argumentList": [
+    {
+      "workingSetName": "$workingSetName",
+      "includeDescendants": "True",
+      "duration": "$duration"
+    }
+  ]
+}

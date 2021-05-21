@@ -1,0 +1,14 @@
+{
+  "name": "Predefined_performanceData_v1",
+  "description": "enrich some MTs",
+  "templateId": "Predefined_performanceData_v1",
+  "argumentList": [
+    {
+      "adaptationid": "$adaptationid",
+      "startTime": "$dataStartTime",
+      "endTime": "$dataEndTime",
+      "measurementTypeList": "$measurementTypeList",
+      "workingsetName": "$workingsetName"
+    }
+  ]
+}

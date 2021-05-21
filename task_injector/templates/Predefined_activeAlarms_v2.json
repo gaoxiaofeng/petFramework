@@ -1,0 +1,14 @@
+{
+  "name": "PET_Framework_CreatePlan",
+  "description": "created by PET Framework",
+  "templateId": "Predefined_activeAlarms_v2",
+  "argumentList": [
+    {
+      "dnContains": "$dnContains",
+      "workingsetName": "$workingsetName",
+      "ackStatus": "unacked",
+      "alarmTimeStart": "$dataStartTime",
+      "alarmTimeEnd": "$dataEndTime"
+    }
+  ]
+}

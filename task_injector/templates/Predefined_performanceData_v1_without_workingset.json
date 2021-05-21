@@ -1,0 +1,13 @@
+{
+  "name": "PET_Framework_CreatePlan",
+  "description": "enrich some MTs",
+  "templateId": "Predefined_performanceData_v1",
+  "argumentList": [
+    {
+      "adaptationid": "$adaptationid",
+      "startTime": "$dataStartTime",
+      "endTime": "$dataEndTime",
+      "measurementTypeList": "$measurementTypeList"
+    }
+  ]
+}

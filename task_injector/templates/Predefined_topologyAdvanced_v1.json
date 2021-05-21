@@ -1,0 +1,10 @@
+{
+  "name": "Predefined_topologyAdvanced_v1",
+  "description": "created by PET Framework",
+  "templateId": "Predefined_topologyAdvanced_v1",
+  "argumentList": [
+    {
+      "dnContains": "$dnContains"
+    }
+  ]
+}

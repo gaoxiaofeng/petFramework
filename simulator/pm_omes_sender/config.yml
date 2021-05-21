@@ -1,0 +1,37 @@
+#target directory to export OMeS file. For NBI3GCPM, it is 
+exportFolder: /var/opt/nokia/oss/global/mediation/south/pm/import
+
+#export omes.xml or omes.xml.gz, current not support
+compressToGzip: false
+
+#thread number for generator,  more threadCount will take more CPU, currently 2 is enough to generated capacity for N20 XXXL
+threadCount: 2
+
+#data we want to generated
+dataConfigList:
+#exampleFilePath: omes template, we provide 2G,3G,4G example by default, you can add it by yourselves
+#dnGenerateRule: 期望修改哪些DN内容, 比如配置为BSC/BCF，那么会将PLMN-PLMN/BSC-ANY/BCF-ANY/BTS-1/TRX-1修改为
+#expectFileCount: 期望生成多少个文件
+#expectIndicatorCount: 期望总共生成多少counter
+#interval: 期望多久生成一次，单位分钟
+
+- {exampleFilePath: "4G-etlexpmx_LNCEL_20200217130003_2127414.xml", dnGenerateRule: "MRBTS/LNBTS", expectFileCount: 9500, expectIndicatorCount: 250000000, interval: 15}
+
+
+
+
+# 20K  1.2B
+
+# 5K 200M  napet
+
+# 15K 1B
+
+# 15min
+# - {exampleFilePath: "omes_examples/RAN/4G.xml", dnGenerateRule: "MRBTS/LNBTS", expectFileCount: 8500, expectIndicatorCount: 157400000, interval: 15}
+# - {exampleFilePath: "omes_examples/RAN/5G.xml", dnGenerateRule: "PLMN/NRBTS", expectFileCount: 6500, expectIndicatorCount: 100000000, interval: 15}
+
+
+# 60min
+# - {exampleFilePath: "omes_examples/RAN/2G.xml", dnGenerateRule: "BSC/BCF", expectFileCount: 1200, expectIndicatorCount: 67000000, interval: 60}
+# - {exampleFilePath: "omes_examples/RAN/3G.xml", dnGenerateRule: "RNC/WBTS", expectFileCount: 1600, expectIndicatorCount: 210200000, interval: 60}
+
