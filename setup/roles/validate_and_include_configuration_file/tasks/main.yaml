@@ -1,0 +1,13 @@
+---
+- include_vars: "{{ configuration_file }}"
+  no_log: true
+
+- name: Check all required parameters are defined
+  fail:
+    msg: "Required parameter {{ item }} is not defined in {{ configuration_file }}."
+  when: hostvars[inventory_hostname][item] is undefined
+        or
+        hostvars[inventory_hostname][item] is none
+  msg: "{{ item }}"
+  with_items: "{{ required_variables }}"
+  changed_when: false

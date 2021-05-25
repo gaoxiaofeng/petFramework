@@ -1,0 +1,63 @@
+---
+- name: RESTDA Frontend {{ restda_frontend_host }} login
+  add_host:
+    group: RESTDA
+    hostname: "frontend"
+    ansible_host: "{{ restda_frontend_host }}"
+    ansible_user: "root"
+    ansible_ssh_pass: "{{ root_passwd }}"
+  changed_when: false
+
+- name: RESTDA Backend {{ restda_backend_host }} login
+  add_host:
+    group: RESTDA
+    hostname: "backend"
+    ansible_host: "{{ restda_backend_host }}"
+    ansible_user: "root"
+    ansible_ssh_pass: "{{ root_passwd }}"
+  changed_when: false
+
+- name: Simulator Primary {{ simulator_primary_host }} login
+  add_host:
+    group: RESTDA
+    hostname: "simualtor_primary"
+    ansible_host: "{{ simulator_primary_host }}"
+    ansible_user: "root"
+    ansible_ssh_pass: "{{ root_passwd }}"
+  changed_when: false
+
+- name: Simulator backup {{ simulator_backup_host1 }} login
+  add_host:
+    group: RESTDA
+    hostname: "simualtor_backup1"
+    ansible_host: "{{ simulator_backup_host1 }}"
+    ansible_user: "root"
+    ansible_ssh_pass: "{{ root_passwd }}"
+  changed_when: false
+
+- name: Simulator backup {{ simulator_backup_host2 }} login
+  add_host:
+    group: RESTDA
+    hostname: "simualtor_backup2"
+    ansible_host: "{{ simulator_backup_host2 }}"
+    ansible_user: "root"
+    ansible_ssh_pass: "{{ root_passwd }}"
+  changed_when: false
+
+- name: Nbi3gc Node {{ nbi3gc_host }} login
+  add_host:
+    group: RESTDA
+    hostname: "nbi3gc"
+    ansible_host: "{{ nbi3gc_host }}"
+    ansible_user: "root"
+    ansible_ssh_pass: "{{ root_passwd }}"
+  changed_when: false
+
+- name: Dmgr Node {{ dmgr_host }} login
+  add_host:
+    group: RESTDA
+    hostname: "dmgr"
+    ansible_host: "{{ dmgr_host }}"
+    ansible_user: "root"
+    ansible_ssh_pass: "{{ root_passwd }}"
+  changed_when: false

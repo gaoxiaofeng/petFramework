@@ -1,0 +1,47 @@
+local_home_dir: /home/n8/jargao/PET_TOOL_PY3
+local_simulator_folder: "{{ local_home_dir }}/simulator"
+local_external_folder: "{{ local_home_dir }}/external"
+local_monitor_folder: "{{ local_home_dir }}/monitor"
+local_task_injector_folder: "{{ local_home_dir }}/task_injector"
+configuration_file: "{{ local_home_dir }}/setup/setup_config2004.yml"
+
+remote_home_dir: /home/restda
+remote_simulator_folder: "{{ remote_home_dir }}/simulator"
+remote_external_folder: "{{ remote_home_dir }}/external"
+remote_monitor_folder: "{{ remote_home_dir }}/monitor"
+remote_task_injector_folder: "{{ remote_home_dir }}/task_injector"
+remote_monitor_executor: "{{ remote_home_dir }}/monitor/monitor_result_file/monitor.py"
+
+remote_simulator_root: /root/simulator
+remote_ccn_executor: "{{ remote_simulator_root }}/ccn_sender/cm_notification_simulator.py"
+remote_ccn_log: "{{ remote_simulator_root }}/ccn_sender/cm_notification_simulator.log"
+remote_ccn_modle_file: "{{ remote_simulator_root }}/ccn_sender/napet_lte_model_for_n20_core_ran.csv"
+ccn_constant: 166
+ccn_burst: 332
+
+remote_manage_object_src: /opt/oss/NSN-nbi3gc/simulator/manageObjectSim.jar
+remote_manage_object_dst: /home/omc/manageObjectSim.jar
+
+remote_alarm_notification_executor: "{{ remote_simulator_root }}/fm_alarm_sender/alarm_soap_simulator.py"
+remote_alarm_notification_log: "{{ remote_simulator_root }}/fm_alarm_sender/alarm_soap_simulator.log"
+alarm_constant: 150
+alarm_burst: 470
+alarm_peak: 1170
+
+remote_adaptation_deploy_executor: "{{ remote_simulator_root }}/deploy_adaptation/deploy_adaptation.py"
+remote_adaptation_deploy_model: "{{ remote_simulator_root }}/deploy_adaptation/adaptation_20.csv"
+
+remote_topology_integrate_executor: "{{ remote_simulator_root }}/prepare_topology_data/prepare_topology_objects.py"
+remote_topology_model_file: "{{ remote_simulator_root }}/prepare_topology_data/napet_lte_model_for_n20_core_ran.csv"
+remote_topology_integrate_log: /root/import_objects.log
+mrbts_count: 8500
+
+remote_restda_api_executor: "{{ remote_simulator_root }}/restdaAPI.py"
+
+remote_jprofile_tool_zip: /home/restda/external/YourKit-JavaProfiler-2018.04-b88.zip
+remote_jprofile_executor: /home/restda/external/YourKit-JavaProfiler-2018.04/bin/attach.sh
+
+remote_task_injector_executor: /root/task_injector
+
+restda_fm_log_dir: /var/opt/oss/log/Nokia-restda-fm
+restda_pm_log_dir: /var/opt/oss/log/Nokia-restda-pm

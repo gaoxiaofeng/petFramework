@@ -1,0 +1,24 @@
+---
+- name: Check Monitor Process Status
+  shell: ps axu|grep monitor.py|grep -v grep|wc -l
+  register: ps_status
+  tags:
+    - deploy
+
+- name: Start Monitor Result File
+  shell: python "{{ remote_monitor_executor }}"
+  when:  ps_status.stdout == "0"
+  tags:
+    - deploy
+
+- name: Check Monitor Process Status
+  shell: ps axu|grep monitor.py|grep -v grep|wc -l
+  register: ps_status
+  tags:
+    - undeploy
+
+- name: Stop Monitor Result File
+  shell: ps axu|grep monitor.py|grep -v grep|awk '{ print $2 }'|xargs kill -9
+  when:  ps_status.stdout != "0"
+  tags:
+    - undeploy

@@ -1,0 +1,35 @@
+---
+- name: Check Restda FM Topology FullSync Log
+  shell: grep "success persist" {{ restda_fm_log_dir }}/oss_activity*.log
+  register: log_content
+  changed_when: false
+  ignore_errors: yes
+  tags:
+    - check
+    - check_log
+
+
+- debug:
+    msg: "{{ log_content.stdout_lines }}"
+  when:  log_content.rc == 0
+  changed_when: false
+  tags:
+    - check
+    - check_log
+
+- name: Check Restda FM Alarm FullSync Log
+  shell: grep "All alarms are fetched from FM Access, total alarms" {{ restda_fm_log_dir }}/oss_activity*.log
+  register: log_content
+  changed_when: false
+  ignore_errors: yes
+  tags:
+    - check
+    - check_log
+
+- debug:
+    msg: "{{ log_content.stdout_lines }}"
+  when:  log_content.rc == 0
+  changed_when: false
+  tags:
+    - check
+    - check_log

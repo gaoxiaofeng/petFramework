@@ -1,0 +1,8 @@
+restda_frontend_host: clab2004node11
+restda_backend_host: clab2004node10
+simulator_primary_host: clab2004node12
+simulator_backup_host1: clab2004node06
+simulator_backup_host2: clab2004node07
+nbi3gc_host: clab2004node06
+dmgr_host: clab2004node18
+root_passwd: arthur

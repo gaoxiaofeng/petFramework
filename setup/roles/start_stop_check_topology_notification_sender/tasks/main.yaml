@@ -1,0 +1,57 @@
+---
+- name: Check Topology Notification Process Status
+  shell: ps axu|grep cm_notification_simulator.py|grep -v grep|wc -l
+  register: ps_status
+  tags:
+    - start_sender
+    - start_topology_sender
+    - stop_sender
+    - stop_topology_sender
+    - check
+    - check_topology_sender
+    - check_sender
+
+- name: Start Topology Notification Sender
+  shell: python "{{ remote_ccn_executor }}" --model="{{ remote_ccn_modle_file }}" --constant="{{ ccn_constant }}" --burst="{{ ccn_burst }}"
+  when:  ps_status.stdout == "0"
+  tags:
+    - start_sender
+    - start_topology_sender
+
+- name: Stop Topology Notification Process
+  shell: ps axu|grep cm_notification_simulator.py|grep -v grep|xargs kill -9
+  when:  ps_status.stdout != "0"
+  ignore_errors: yes
+  tags:
+    - stop_sender
+    - stop_topology_sender
+
+
+- debug:
+    msg: "ccn simulator is not started"
+  when:  ps_status.stdout == "0"
+  changed_when: false
+  tags:
+    - check
+    - check_topology_sender
+    - check_sender
+
+
+- name: Check Topology Notification Log
+  shell: tail -n 20 "{{ remote_ccn_log }}"
+  when:  ps_status.stdout != "0"
+  register: tail_result
+  changed_when: false
+  tags:
+    - check
+    - check_topology_sender
+    - check_sender
+
+- debug:
+    msg: "{{ tail_result.stdout_lines }}"
+  when:  ps_status.stdout != "0"
+  changed_when: false
+  tags:
+    - check
+    - check_topology_sender
+    - check_sender

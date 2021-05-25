@@ -1,0 +1,16 @@
+---
+- name: Copy manageObject.jar to /home/omc
+  copy:
+    src: "{{ remote_manage_object_src }}"
+    dest: /home/omc/
+    remote_src: yes
+    owner: omc
+    group: sysop
+    mode: '0777'
+  tags:
+    - deploy
+
+- name: Remove manageObject.jar under /home/omc
+  shell: rm -f {{ remote_manage_object_dst }}
+  tags:
+    - undeploy

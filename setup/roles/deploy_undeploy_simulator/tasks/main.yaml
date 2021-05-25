@@ -1,0 +1,13 @@
+---
+- name: Copy Simulator to /root
+  shell: cp -rf "{{ remote_simulator_folder }}" /root
+  register: cp_status
+  tags:
+    - deploy
+
+
+- name: Remove Simulator under /root
+  shell: rm -rf "{{ remote_simulator_root }}"
+  register: rm_status
+  tags:
+    - undeploy

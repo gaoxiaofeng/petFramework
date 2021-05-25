@@ -1,0 +1,25 @@
+---
+- name: Check Adaptation Deploying Process Status
+  shell: ps axu|grep deploy_adaptation.py|grep -v grep|wc -l
+  register: ps_status
+  tags:
+    - deploy_adaptation
+
+- name: Start Deploying Adaptation
+  shell: python "{{ remote_adaptation_deploy_executor }}" --model="{{ remote_adaptation_deploy_model }}" --deploy
+  when:  ps_status.stdout == "0"
+  tags:
+    - deploy_adaptation
+
+- name: Check Adaptation Deploying Detailed
+  shell: python "{{ remote_adaptation_deploy_executor }}" --model="{{ remote_adaptation_deploy_model }}" --check
+  register: check_result
+  changed_when: false
+  tags:
+    - check_adaptation
+
+- debug:
+    msg: "{{ check_result.stderr_lines }}"
+  changed_when: false
+  tags:
+    - check_adaptation

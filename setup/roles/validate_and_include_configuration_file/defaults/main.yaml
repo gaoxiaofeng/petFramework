@@ -1,0 +1,9 @@
+required_variables:
+  - restda_frontend_host
+  - restda_backend_host
+  - simulator_primary_host
+  - simulator_backup_host1
+  - simulator_backup_host2
+  - nbi3gc_host
+  - dmgr_host
+  - root_passwd

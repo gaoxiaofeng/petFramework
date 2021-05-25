@@ -1,0 +1,31 @@
+---
+- name: Check Env
+  shell: hostname
+  register: hostname
+  changed_when: false
+  tags:
+    - ps
+    - check
+
+- name: Check RESTDA process
+  shell: ps axu|grep restda|grep -v grep
+  register: ps_status
+  changed_when: false
+  tags:
+    - ps
+    - check
+
+
+- debug:
+    msg: "{{ hostname.stdout }}"
+  changed_when: false
+  tags:
+    - ps
+    - check
+
+- debug:
+    msg: "{{ ps_status.stdout_lines }}"
+  changed_when: false
+  tags:
+    - ps
+    - check

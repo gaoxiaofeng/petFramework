@@ -1,0 +1,62 @@
+---
+- name: Upload PET tool to lab
+  copy:
+    src: "{{ item }}"
+    dest: /home/restda/
+    owner: restda
+    group: sysop
+    mode: '0777'
+  with_items:
+    - "{{ local_simulator_folder }}"
+    - "{{ local_external_folder }}"
+    - "{{ local_monitor_folder }}"
+    - "{{ local_task_injector_folder }}"
+  tags:
+    - deploy
+
+- name: Check Jprofile If exists
+  shell: ls "{{ remote_jprofile_executor }}"|wc -l
+  register: jprofile_exist
+  changed_when: false
+  tags:
+    - deploy
+
+- name: Unzip Jprofile Tool
+  unarchive:
+    src: "{{ remote_jprofile_tool_zip }}"
+    dest: "{{ remote_external_folder }}"
+    remote_src: yes
+    mode: 0777
+    owner: restda
+    group: sysop
+  when:  jprofile_exist.stdout == "0"
+  changed_when: true
+  tags:
+    - deploy
+
+- name: Check {{ remote_task_injector_executor }} If exists
+  shell: ls "{{ remote_task_injector_executor }}"|wc -l
+  register: injector_exist
+  changed_when: false
+  tags:
+    - deploy
+
+- name: Copy {{ remote_task_injector_folder }} to /root
+  shell: cp -rf "{{ remote_task_injector_folder }}" /root
+  register: cp_status
+  when:  injector_exist.stdout == "0"
+  changed_when: true
+  tags:
+    - deploy
+
+
+- name: Delete PET tool to lab
+  shell: rm -rf {{ item }}
+  with_items:
+    - "{{ remote_simulator_folder }}"
+    - "{{ remote_external_folder }}"
+    - "{{ remote_monitor_folder }}"
+    - "{{ remote_task_injector_folder }}"
+    - "{{ remote_task_injector_executor }}"
+  tags:
+    - undeploy

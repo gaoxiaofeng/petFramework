@@ -1,0 +1,10 @@
+---
+- name: Enable RESTDA
+  shell: python "{{ remote_restda_api_executor }}" -o enable
+  tags:
+    - enable
+
+- name: Disable RESTDA
+  shell: python "{{ remote_restda_api_executor }}" -o disable
+  tags:
+    - disable

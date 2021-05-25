@@ -1,0 +1,8 @@
+restda_frontend_host: sprintlab694vm13
+restda_backend_host: sprintlab694vm12
+simulator_primary_host: sprintlab694vm14
+simulator_backup_host1: sprintlab694vm8
+simulator_backup_host2: sprintlab694vm9
+nbi3gc_host: sprintlab694vm8
+dmgr_host: sprintlab694vm20
+root_passwd: arthur

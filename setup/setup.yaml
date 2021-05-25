@@ -1,0 +1,96 @@
+---
+- name: initialization
+  hosts: localhost
+  connection: local
+  roles:
+    - { role: 'validate_and_include_configuration_file', tags: ['always'] }
+    - { role: 'add_hosts', tags: ['always'] }
+
+- name: Precheck Lab Env Phase
+  hosts: frontend, backend
+  connection: ssh
+  pre_tasks:
+    - include_vars: "{{ configuration_file }}"
+      no_log: true
+  roles:
+    - { role: 'precheck_hosts' }
+
+- name: Deploy/Undeploy manageObject.jar
+  hosts: nbi3gc
+  connection: ssh
+  pre_tasks:
+    - include_vars: "{{ configuration_file }}"
+      no_log: true
+  roles:
+    - { role: 'manage_object_tool' }
+
+- name: Deploy/Undeploy PET tools
+  hosts: simualtor_primary
+  connection: ssh
+  pre_tasks:
+    - include_vars: "{{ configuration_file }}"
+      no_log: true
+  roles:
+    - { role: 'deploy_undeploy_pet_tool' }
+
+- name: Deploy/Undeploy simulators
+  hosts: simualtor_primary, simualtor_backup1, simualtor_backup2, dmgr, backend
+  connection: ssh
+  pre_tasks:
+    - include_vars: "{{ configuration_file }}"
+      no_log: true
+  roles:
+    - { role: 'deploy_undeploy_simulator' }
+
+- name: Result File Monitor
+  hosts: frontend
+  connection: ssh
+  pre_tasks:
+    - include_vars: "{{ configuration_file }}"
+      no_log: true
+  roles:
+    - { role: 'start_stop_result_file_monitor' }
+
+- name: Topology intergration and notification sender
+  hosts: simualtor_backup1
+  connection: ssh
+  pre_tasks:
+    - include_vars: "{{ configuration_file }}"
+      no_log: true
+  roles:
+    - { role: 'start_stop_check_topology_notification_sender' }
+    - { role: 'start_stop_check_topology_integration' }
+
+
+- name: FM Notification Sender
+  hosts: simualtor_primary, simualtor_backup1, simualtor_backup2
+  connection: ssh
+  pre_tasks:
+    - include_vars: "{{ configuration_file }}"
+      no_log: true
+  roles:
+    - { role: 'start_stop_check_fm_notification_sender' }
+
+- name: Base Adaptation Deployment
+  hosts: dmgr
+  connection: ssh
+  pre_tasks:
+    - include_vars: "{{ configuration_file }}"
+      no_log: true
+  roles:
+    - { role: 'deploy_check_base_adaptation' }
+
+- name: Restda Managed
+  hosts: backend
+  connection: ssh
+  pre_tasks:
+    - include_vars: "{{ configuration_file }}"
+      no_log: true
+  roles:
+    - { role: 'check_logs' }
+    - { role: 'trigger_check_topology_fm_fullsync' }
+    - { role: 'check_running_tasks' }
+    - { role: 'start_jprofile_with_restda_fm_pm' }
+    - { role: 'enable_disable_restda' }
+
+

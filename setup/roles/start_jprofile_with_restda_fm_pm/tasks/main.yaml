@@ -1,0 +1,24 @@
+---
+- name: Check Restda FM Process
+  shell: ps axu|grep com.nokia.oss.restda.fm.Main|grep -v grep|wc -l
+  register: ps_restdafm_status
+  tags:
+    - start_jprofile
+
+- name: Start Jprofile With Restda FM
+  shell: pid=$(ps aux|grep com.nokia.oss.restda.fm.Main|grep -v grep|awk '{ print $2 }') && runuser -l restda -s "/bin/sh" -c "sh "{{ remote_jprofile_executor }}" ${pid} listen=all,tmpdir=/var/opt/oss/log/Nokia-restda-fm,port=10001,exceptions=on,sessionname=restda_fm"
+  when:  ps_restdafm_status.stdout != "0"
+  tags:
+    - start_jprofile
+
+- name: Check Restda PM Process
+  shell: ps axu|grep com.nokia.oss.restda.Main|grep -v grep|wc -l
+  register: ps_restdapm_status
+  tags:
+    - start_jprofile
+
+- name: Start Jprofile With Restda PM
+  shell: pid=$(ps aux|grep com.nokia.oss.restda.Main|grep -v grep|awk '{ print $2 }') && runuser -l restda -s "/bin/sh" -c "sh "{{ remote_jprofile_executor }}" ${pid} listen=all,tmpdir=/var/opt/oss/log/Nokia-restda-pm,port=10002,exceptions=on,sessionname=restda_pm"
+  when:  ps_restdapm_status.stdout != "0"
+  tags:
+    - start_jprofile

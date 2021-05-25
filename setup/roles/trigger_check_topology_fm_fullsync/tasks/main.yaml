@@ -1,0 +1,87 @@
+---
+- name: Check Topology FullSync Status
+  shell: grep TOPOLOGY_FULL_SYNC_STATUS /var/opt/oss/Nokia-restda-fm/systemdata/.restda_system_parameter.properties| awk -F = '{ print $ 2 }'
+  register: topology_fullsync_status
+  changed_when: false
+  tags:
+    - check_fullsync
+    - check
+    - trigger_fullsync
+    - trigger_fm_fullsync
+
+- name: Check Alarm FullSync Status
+  shell: grep FM_FULL_SYNC_STATUS /var/opt/oss/Nokia-restda-fm/systemdata/.restda_system_parameter.properties| awk -F = '{ print $ 2 }'
+  register: alarm_fullsync_status
+  changed_when: false
+  tags:
+    - check_fullsync
+    - check
+    - trigger_fullsync
+    - trigger_fm_fullsync
+
+- debug:
+    msg: "Topology FullSync is standby."
+  changed_when: false
+  when:  topology_fullsync_status.stdout == "0"
+  tags:
+    - check_fullsync
+    - check
+
+- debug:
+    msg: "Topology FullSync is ongoing..."
+  changed_when: false
+  when:  topology_fullsync_status.stdout == "1"
+  tags:
+    - check_fullsync
+    - check
+
+- debug:
+    msg: "Topology FullSync was successful."
+  changed_when: false
+  when:  topology_fullsync_status.stdout == "2"
+  tags:
+    - check_fullsync
+    - check
+
+- debug:
+    msg: "Alarm FullSync is standby."
+  changed_when: false
+  when:  alarm_fullsync_status.stdout == "0"
+  tags:
+    - check_fullsync
+    - check
+
+- debug:
+    msg: "Alarm FullSync is ongoing..."
+  changed_when: false
+  when:  alarm_fullsync_status.stdout == "1"
+  tags:
+    - check_fullsync
+    - check
+
+- debug:
+    msg: "Alarm FullSync was successful."
+  changed_when: false
+  when:  alarm_fullsync_status.stdout == "2"
+  tags:
+    - check_fullsync
+    - check
+
+
+- name: Trigger Topology FullSync
+  shell: /opt/oss/Nokia-restda-fm/bin/trigger_topology_fullsync.sh
+  register: ps_status
+  changed_when: false
+  when: topology_fullsync_status.stdout == "2"
+  tags:
+    - trigger_fullsync
+    - trigger_topology_fullsync
+
+- name: Trigger Alarm FullSync
+  shell: sed -i 's/FM_FULL_SYNC_NEEDED=.*/FM_FULL_SYNC_NEEDED=yes/g' /var/opt/oss/Nokia-restda-fm/systemdata/.restda_system_parameter.properties && sed -i 's/FM_LAST_FULL_SYNC_TIME=.*/FM_LAST_FULL_SYNC_TIME=1609430400000/g' /var/opt/oss/Nokia-restda-fm/systemdata/.restda_system_parameter.properties
+  register: ps_status
+  changed_when: false
+  when: alarm_fullsync_status.stdout == "2"
+  tags:
+    - trigger_fullsync
+    - trigger_fm_fullsync

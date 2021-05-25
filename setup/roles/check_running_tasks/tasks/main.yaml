@@ -1,0 +1,33 @@
+---
+- name: Check FM Running Tasks
+  shell: echo -ne "set echo off \nset heading off \n set feedback off \n set trimout on \n set trimspool on \n select t.template_id, p.template_arguments from task_info t join plan_info p on t.plan_id = p.plan_id where t.TEMPLATE_ID != 'Predefined_performanceData_v1' and t.status = 2;"|sqlplus -S omc/omc
+  register: fm_running_tasks
+  changed_when: false
+  tags:
+    - check
+    - check_tasks
+
+- debug:
+    msg: "{{ fm_running_tasks.stdout_lines }}"
+  when:  fm_running_tasks.rc == 0
+  changed_when: false
+  tags:
+    - check
+    - check_tasks
+
+
+- name: Check PM Running Tasks
+  shell: echo -ne "set echo off \nset heading off \n set feedback off \n set trimout on \n set trimspool on \n select t.template_id, p.template_arguments from task_info t join plan_info p on t.plan_id = p.plan_id where t.TEMPLATE_ID = 'Predefined_performanceData_v1' and t.status = 2;"|sqlplus -S omc/omc
+  register: pm_running_tasks
+  changed_when: false
+  tags:
+    - check
+    - check_tasks
+
+- debug:
+    msg: "{{ pm_running_tasks.stdout_lines }}"
+  when:  pm_running_tasks.rc == 0
+  changed_when: false
+  tags:
+    - check
+    - check_tasks

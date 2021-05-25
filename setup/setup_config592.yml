@@ -1,0 +1,8 @@
+restda_frontend_host: sprintlab592vm13
+restda_backend_host: sprintlab592vm12
+simulator_primary_host: sprintlab592vm14
+simulator_backup_host1: sprintlab592vm8
+simulator_backup_host2: sprintlab592vm9
+nbi3gc_host: sprintlab592vm8
+dmgr_host: sprintlab592vm20
+root_passwd: arthur
